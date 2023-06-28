@@ -11,7 +11,6 @@ const CardPlan = ({ ...props }: CardPlanProps) => {
             <IonCardSubtitle style={{fontSize: "15px", marginTop: "10px"}}> price : {'$' + props.price}</IonCardSubtitle>
             </IonCardContent>
             <IonButton fill="clear">Buy plan</IonButton>
-
         </IonCard>
     );
 }

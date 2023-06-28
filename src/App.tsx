@@ -24,6 +24,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import Plan from './pages/Plan';
+import Minning from './pages/Minning';
 
 setupIonicReact();
 
@@ -36,6 +37,7 @@ const App: React.FC = () => {
           <IonRouterOutlet id="main">
             <Redirect exact from='/' to="/login/auth" />
             <Route path="/folder/:name" component={Page}/>
+            <Route path="/folder/mine" component={Minning}/>
             <Route path="/folder/buy" component={Plan}/>
             <Route path="/login/auth" component={Login}/>
           </IonRouterOutlet>
