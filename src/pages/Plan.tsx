@@ -41,7 +41,7 @@ const Plan: React.FC = () => {
                 <IonContent>
                     {CardContent.map((item, index) => (
                         <IonItem>
-                            <CardPlan title={item.title} description={item.description} price={item.price} />
+                            <CardPlan key={index} title={item.title} description={item.description} price={item.price} />
                         </IonItem>
                     ))}
                 </IonContent>
