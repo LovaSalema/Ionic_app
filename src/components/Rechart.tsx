@@ -15,13 +15,11 @@ import { useGlobalContext } from '../context/MineContext';
  const Example=()=> {
   const {data}=useGlobalContext();
   useEffect(()=>{
-    console.log('====================================');
-    console.log('data is updating! ');
-    console.log('====================================');
+
   },[data])
 
     return (
-      <ResponsiveContainer  width={340} height={350}  >
+      <ResponsiveContainer  width={300} height={350}  >
         <LineChart
           data={data}
           margin={{

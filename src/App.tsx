@@ -25,26 +25,49 @@ import './theme/variables.css';
 import Login from './pages/Login';
 import Plan from './pages/Plan';
 import Minning from './pages/Minning';
+import { useGlobalContext } from './context/MineContext';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  return (
+  const {isConnected, setConnect}=useGlobalContext();
+  useEffect(
+()=>{setConnect(true)}, [isConnected]
+  )
+  if(isConnected){
+    return (
+      <IonApp>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Redirect exact  to="/folder/mine"/>
+              <Route path="/folder/:name" component={Page}/>
+              <Route path="/folder/mine" component={Minning}/>
+              <Route path="/folder/buy" component={Plan}/>
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </IonApp>
+    );
+  }else{
+    return(
     <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Redirect exact from='/' to="/login/auth" />
-            <Route path="/folder/:name" component={Page}/>
-            <Route path="/folder/mine" component={Minning}/>
-            <Route path="/folder/buy" component={Plan}/>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+            <Redirect exact to="/login/auth"/>
             <Route path="/login/auth" component={Login}/>
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
-    </IonApp>
-  );
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </IonApp>
+    
+    )
+  }
+
 };
 
 export default App;

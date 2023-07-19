@@ -13,6 +13,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { archiveOutline, archiveSharp, bookmarkOutline, cartOutline, diceOutline, heartOutline, heartSharp, logOutOutline, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, personCircleOutline, trashOutline, trashSharp, trendingUp, warningOutline, warningSharp } from 'ionicons/icons';
 import './Menu.css';
+import { useGlobalContext } from '../context/MineContext';
 
 interface AppPage {
   url: string;
@@ -59,7 +60,18 @@ const labels = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const {isConnected, setConnect}=useGlobalContext();
 
+  const Logout =()=>{
+    fetch(
+      '/api/logout.php',{
+        method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+      }
+    )
+  }
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
@@ -82,7 +94,7 @@ const Menu: React.FC = () => {
           <IonListHeader>Logout</IonListHeader>
           {labels.map((label, index) => (
             <IonMenuToggle key={index} autoHide={false}>
-              <IonItem lines="none" key={index} routerLink={label.url}>
+              <IonItem lines="none" key={index} routerLink={label.url} onClick={()=>{setConnect(false); Logout()}}>
                 <IonIcon aria-hidden="true" slot="start" icon={logOutOutline} />
                 <IonLabel>{label.title}</IonLabel>
               </IonItem>

@@ -5,24 +5,25 @@ import { useParams } from "react-router";
 
 const CardContent = [
     {
-        title: 'Plan 0',
-        description: 'This plan is not secured but try to increase your balance. Balance between $5 and $10 can have 0.24$/day, $1.68/week, $6.72/month.',
-        price: 4
+        title: 'LITE',
+        description: ` $4 and and earn $0.18 per day or $8 and earn at least $0.36 per day!`,
+        price: '$4 at first and 2$ per month',
+        ImgUrl: '/lite.png',
+        color: 'dark'
     },
     {
-        title: 'Plan 1',
-        description: 'Invest more than 10$ and earn more than 0.45$/day, 3.15$/week, 12.6$/month.',
-        price: 8
+        title: 'PREMIUM',
+        description:  ` $16 and and earn $0.72 per day or $32 and earn at least $1.44 per day!`,
+        price: '$6 at first and $4 per month',
+        ImgUrl: '/premium.png',
+        color: 'primary'
     },
     {
-        title: 'Plan 2',
-        description: 'Invest more than 20$ and earn more than 0.9$/day, 6.3$/week, 25.2$/month.',
-        price: 10
-    },
-    {
-        title: 'Plan 3',
-        description: 'Invest more than 40$ and earn more than 1.8$/day, 12.6$/week, 50.4$/month',
-        price: 15
+        title: 'VIP',
+        description:  ` $64 and and earn $2.16 per day or $128 and earn at least $4.32 per day!`,
+        price: '$8 at first and $6 per month',
+        ImgUrl: '/gold.png',
+        color: 'warning'
     },
 ]
 const Plan: React.FC = () => {
@@ -41,8 +42,8 @@ const Plan: React.FC = () => {
                 <IonContent>
                     {CardContent.map((item, index) => (
                         <IonItem>
-                            <CardPlan key={index} title={item.title} description={item.description} price={item.price} />
-                        </IonItem>
+                            <CardPlan key={index} color={item.color} title={item.title} description={item.description} price={item.price} ImgUrl={item.ImgUrl}/>
+                        </IonItem> 
                     ))}
                 </IonContent>
             </IonPage>

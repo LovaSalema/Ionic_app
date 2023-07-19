@@ -4,13 +4,17 @@ interface ContextType {
     data: object[],
     updateData: (newProfit: number)=>void,
     isRunning: boolean,
-    setRunning: ()=>void
+    setRunning: ()=>void,
+    isConnected: boolean,
+    setConnect: (b:boolean)=>void,
 }
 const InitialState: ContextType = {
     data: [{ profit: 0}],
     updateData: ()=>{},
     isRunning: false,
-    setRunning: ()=>{}
+    setRunning: ()=>{},
+    isConnected: false,
+    setConnect: (b:boolean)=>{}
 }
 const MineContext =React.createContext(InitialState);
 type ContainerProps ={
@@ -20,7 +24,11 @@ const MineProvider=({children}: ContainerProps)=>{
    
     const [isRunning, setIsRunning]=useState<boolean>(false);
     const [data, setData]=useState([{profit:0}]);
+    const [isConnected, setIsConnected]=useState<boolean>(false);
 
+    const setConnect=(b:boolean)=>{
+        setIsConnected(b)
+    }
     const setRunning=()=>{
         setIsRunning(!isRunning)
     }
@@ -30,15 +38,18 @@ const MineProvider=({children}: ContainerProps)=>{
     }
 
 useEffect(()=>{
-        setData(data)
-},[data])
+        setData(data); 
+        setIsConnected(isConnected)
+},[data, isConnected])
 
     return(
         <MineContext.Provider value={{
             data,
             updateData,
             isRunning,
-            setRunning
+            setRunning,
+            isConnected,
+            setConnect
         }}>
         {children}
         </MineContext.Provider>
