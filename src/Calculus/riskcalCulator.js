@@ -3,7 +3,7 @@ const riskcalCulator= (base, Amount)=>{
     let profit=0;
     let total =0;
     let i=0;
-    for(let i=0; total<3; i++){
+    for(let i=0; total<40; i++){
             waggered= base*(1.5999)**(i);
             Amount=Amount - waggered;
             profit= waggered*1.66778 - total
@@ -14,7 +14,7 @@ const riskcalCulator= (base, Amount)=>{
     console.log("total waggered :"+total);
 }
 
-riskcalCulator(0.0002,5)
+riskcalCulator(0.0002,50)
 
 // 34% balance $5
 // const riskcalCulator= (base, Amount)=>{

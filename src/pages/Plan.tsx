@@ -22,7 +22,7 @@ const CardContent = [
         title: 'VIP',
         description:  ` $64 and and earn $2.16 per day or $128 and earn at least $4.32 per day!`,
         price: '$8 at first and $6 per month',
-        ImgUrl: '/gold.png',
+        ImgUrl: '/gold.jpg',
         color: 'warning'
     },
 ]
@@ -40,11 +40,14 @@ const Plan: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    {CardContent.map((item, index) => (
-                        <IonItem>
+                    <div style={{backgroundColor: "#ececec"}}>
+                    
+                {CardContent.map((item, index) => (
+                        <IonItem color="light">
                             <CardPlan key={index} color={item.color} title={item.title} description={item.description} price={item.price} ImgUrl={item.ImgUrl}/>
                         </IonItem> 
                     ))}
+                </div>
                 </IonContent>
             </IonPage>
         </>
