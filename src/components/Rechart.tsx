@@ -32,6 +32,7 @@ import { useGlobalContext } from '../context/MineContext';
           <CartesianGrid horizontal={false} vertical={false} fill='#0E3854'/>
           {/* <XAxis dataKey="name" /> */}
           {/* <YAxis /> */}
+
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="profit" stroke="#93fd70" activeDot={{ r: 4 }} />
