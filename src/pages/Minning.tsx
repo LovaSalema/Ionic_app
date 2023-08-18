@@ -22,7 +22,7 @@ const Minning: React.FC = ({ name }: any) => {
     let Amount_temp = newParams.amount;
     let count = 0;
 
-    // const random = (min : number, max : number)=>(Math.random()*(max-min)+min);
+
     const params: { [key: string]: number } = {
         mfpayoutper: newParams.chance,
         mfpayunder_over: newParams.under_over,
@@ -43,16 +43,17 @@ const Minning: React.FC = ({ name }: any) => {
         const id = setInterval(async () => {
             if (pmdiceData[3]?.indexOf("success") !== -1) {
                 setNewParams({ ...newParams, chance: 63, amount: 0.0002 })
-                if (count % 12 == 0) {
+                if (count % 100 == 0) {
                     setNewParams({ ...newParams, under_over: newParams.under_over === 1 ? 2 : 1 })
                 }
                 console.log(newParams);
                 setSuccess({ ...success, win: success.win++ })
                 count++;
             } else {
-                Amount_temp = Amount_temp * (1.5999);
+                Amount_temp = Amount_temp * (1.6);
                 setNewParams({ ...newParams, chance: 34, amount: (Math.ceil(Amount_temp * 10000) / 10000) })
-                setSuccess({ ...success, loss: success.loss++ })
+                setSuccess({ ...success, loss: success.loss++ });
+                count ++;
             }
             let data = pmdiceData[12]?.split(",")
 
@@ -63,10 +64,10 @@ const Minning: React.FC = ({ name }: any) => {
                 },
                 body: formBody
             }).then((response) => response.text())
-                .then((data) => {
+              .then((data) => {
                     let CleanData = data.split(",,"); setPmdiceData(CleanData);
                 }
-                ).catch((error) => console.log(error)
+                ).catch((error) => {console.log(error); setTimeout(()=>{  }, 3000)}
                 )
                 ; updateData(parseInt(profit))
         }, 2000);
