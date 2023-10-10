@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://pmdice.com",
+  
         changeOrigin: true,
         rewrite : (path)=>path.replace(/^\/api/, ""),
       },

@@ -33,7 +33,7 @@ const Minning: React.FC = ({ name }: any) => {
     useEffect(() => {
         setPmdiceData(pmdiceData);
         setNewParams(newParams);
-        setSuccess(success)
+        setSuccess(success);
         setWaggered(waggered + newParams.amount)
     }, [pmdiceData, newParams, success])
 
@@ -68,12 +68,13 @@ const Minning: React.FC = ({ name }: any) => {
                     let CleanData = data.split(",,"); setPmdiceData(CleanData);
                 }
                 ).catch((error) => {console.log(error); setTimeout(()=>{  }, 3000)}
-                )
-                ; updateData(parseInt(profit))
-        }, 2000);
+                );
+                 updateData(parseInt(profit))
+        }, 3000);
         setIntervalId(id);
         setRunning();
     };
+    
     const stopInterval = () => {
         clearInterval(IntervalId);
         setIntervalId(null);

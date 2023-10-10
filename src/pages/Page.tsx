@@ -5,8 +5,9 @@ import './Page.css';
 
 const Page: React.FC = () => {
 
-  const { name } = useParams<{ name: string; }>();
 
+  const { name } = useParams<{ name: string; }>();
+ 
   return (
     <IonPage>
       <IonHeader>
