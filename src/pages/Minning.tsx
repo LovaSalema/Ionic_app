@@ -8,7 +8,7 @@ const Minning: React.FC = ({ name }: any) => {
     const { data, updateData, isRunning, setRunning } = useGlobalContext();
     const [IntervalId, setIntervalId] = useState<null | any>(null);
     const [pmdiceData, setPmdiceData] = useState<string[]>([]);
-    const [profit, setProfit] = useState('');
+    const [profit, setProfit] = useState(0);
     const [success, setSuccess] = useState({
         loss: 0,
         win: 0
@@ -17,7 +17,7 @@ const Minning: React.FC = ({ name }: any) => {
     const [newParams, setNewParams] = useState({
         chance: 63,
         under_over: 1,
-        amount: 0.0002
+        amount: 0.0001
     })
     let Amount_temp = newParams.amount;
     let count = 0;
@@ -29,20 +29,25 @@ const Minning: React.FC = ({ name }: any) => {
         mfInputAmount: newParams.amount
     }
 
+
     // Check if the data is updated
     useEffect(() => {
         setPmdiceData(pmdiceData);
         setNewParams(newParams);
         setSuccess(success);
-        setWaggered(waggered + newParams.amount)
-    }, [pmdiceData, newParams, success])
+        updateData(profit)
+        
+    }, [pmdiceData, newParams, success, pmdiceData, profit])
 
     const formBody = Object.keys(params).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
 
     const startInterval = () => {
+        const p = (parseFloat(pmdiceData[3]?.substring(43,49))*1000)/1000
         const id = setInterval(async () => {
-            if (pmdiceData[3]?.indexOf("success") !== -1) {
-                setNewParams({ ...newParams, chance: 63, amount: 0.0002 })
+            if(newParams.amount!==0) setWaggered(waggered + newParams.amount)
+            if (pmdiceData[3]?.includes("success")) {
+                setNewParams({ ...newParams, chance: 63, amount: 0.0001 });
+                setProfit(p)
                 if (count % 100 == 0) {
                     setNewParams({ ...newParams, under_over: newParams.under_over === 1 ? 2 : 1 })
                 }
@@ -54,8 +59,11 @@ const Minning: React.FC = ({ name }: any) => {
                 setNewParams({ ...newParams, chance: 34, amount: (Math.ceil(Amount_temp * 10000) / 10000) })
                 setSuccess({ ...success, loss: success.loss++ });
                 count ++;
+                setProfit(p)
             }
-            let data = pmdiceData[12]?.split(",")
+            
+            console.log("profit: "+profit);
+            
 
             await fetch('/api/playb.php', {
                 method: "POST",
@@ -69,7 +77,7 @@ const Minning: React.FC = ({ name }: any) => {
                 }
                 ).catch((error) => {console.log(error); setTimeout(()=>{  }, 3000)}
                 );
-                 updateData(parseInt(profit))
+                
         }, 3000);
         setIntervalId(id);
         setRunning();
